@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Home from "../components/Home";
 import History from "../components/History";
 import Feedback from "../components/Feedback";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import Header from "../components/header";
 const Tab = createBottomTabNavigator();
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, route }) => {
+  const { username } = route.params;
   const CustomTabBar = ({ navigation, state, descriptors }) => {
     return (
       <View style={styles.tabBarContainer}>
@@ -35,8 +42,6 @@ const HomeScreen = ({ navigation }) => {
             iconName = isFocused ? "home" : "home-outline";
           } else if (route.name === "History") {
             iconName = isFocused ? "time" : "time-outline";
-          } else if (route.name === "Project") {
-            iconName = "folder";
           } else if (route.name === "Feedback") {
             iconName = isFocused ? "chatbubble" : "chatbubble-outline";
           }
@@ -65,13 +70,23 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <Tab.Navigator
-      tabBar={(props) => <CustomTabBar {...props} />}
-      screenOptions={{ headerShown: false }}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="History" component={History} />
-      <Tab.Screen name="Feedback" component={Feedback} />
+    <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />}>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        initialParams={{ username: username }}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="History"
+        component={History}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Feedback"
+        component={Feedback}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 };

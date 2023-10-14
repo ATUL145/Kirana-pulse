@@ -7,6 +7,10 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import firebase from "firebase/compat/app";
+import "firebase/auth";
+import "firebase/storage";
+import "firebase/database";
+
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
@@ -23,4 +27,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase();
+
 export { db };

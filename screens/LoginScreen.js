@@ -1,6 +1,14 @@
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+  c,
+  createContext,
+} from "react";
 import {
+  Dimensions,
   Image,
   KeyboardAvoidingView,
   Pressable,
@@ -8,48 +16,79 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from "react-native";
+const window = Dimensions.get("window");
+
 const Login = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const emailInputRef = useRef(null);
+  const usernameInputRef = useRef(null);
+
   useEffect(() => {
-    emailInputRef.current.focus();
-  }, [email]);
+    usernameInputRef.current.focus();
+  }, [username]);
 
   const handleLogin = () => {
-    console.log("pressed");
+    if (username.trim() === "" || password.trim() === "") {
+      ToastAndroid.showWithGravityAndOffset(
+        "Please enter both username and password",
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        25,
+        50
+      );
+    } else if (
+      password === "retailpulse" &&
+      (username === "Ram" || username === "Shyam")
+    ) {
+      navigation.navigate("HomeScreen", { username: username });
+      console.log(
+        "🚀 ~ file: LoginScreen.js:43 ~ handleLogin ~ username:",
+        username
+      );
+    } else {
+      ToastAndroid.showWithGravityAndOffset(
+        "Invalid Credentials",
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        25,
+        50
+      );
+    }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.keyboardAvoidingContainer}>
         <View style={styles.innerContainer}>
+          <Image source={require("../assets/store.png")} style={styles.logo} />
           <View style={styles.inputContainer}>
-            <MaterialIcons
-              name="email"
-              size={24}
+            <AntDesign
+              name="user"
+              size={window.width * 0.06}
               color="purple"
               style={styles.icon}
             />
             <TextInput
               style={styles.input}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              placeholder="Email"
+              value={username}
+              onChangeText={(text) => setUsername(text)}
+              placeholder="Username"
               placeholderTextColor="#A9A9A9"
               keyboardType="email-address"
               autoCapitalize="none"
-              ref={emailInputRef}
+              ref={usernameInputRef}
             />
           </View>
           <View style={styles.inputContainer}>
             <FontAwesome
               name="lock"
-              size={24}
+              size={window.width * 0.06}
               color="purple"
               style={styles.icon}
             />
@@ -71,15 +110,7 @@ const Login = ({ navigation }) => {
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
-          <Pressable
-            onPress={() => {
-              console.log("hello there");
-            }}
-          >
-            <Text style={styles.signUpText}>
-              Don't have an account? Sign Up
-            </Text>
-          </Pressable>
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -89,7 +120,7 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -99,34 +130,28 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: window.width * 0.04,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: window.width * 0.3,
+    height: window.width * 0.3,
     resizeMode: "contain",
-    marginTop: "35%",
-  },
-  title: {
-    fontSize: 17,
-    fontWeight: "bold",
-    marginTop: 12,
-    color: "#041E42",
+    marginTop: window.height * 0.1,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     width: "90%",
-    height: 50,
+    height: window.height * 0.06,
     backgroundColor: "white",
     borderWidth: 1,
     borderColor: "#A9A9A9",
     borderRadius: 5,
-    marginTop: 10,
-    paddingHorizontal: 10,
+    marginTop: window.height * 0.02,
+    paddingHorizontal: window.width * 0.03,
   },
   icon: {
-    marginRight: 10,
+    marginRight: window.width * 0.02,
   },
   input: {
     flex: 1,
@@ -134,8 +159,8 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: "purple",
-    marginTop: 20,
-    height: 40,
+    marginTop: window.height * 0.03,
+    height: window.height * 0.06,
     width: "90%",
     alignItems: "center",
     justifyContent: "center",
@@ -150,14 +175,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: "90%",
-    marginTop: 10,
+    marginTop: window.height * 0.02,
   },
   forgotPassword: {
     color: "blue",
   },
-  signUpText: {
-    color: "blue",
-    marginTop: 10,
+  errorText: {
+    color: "red",
+    marginTop: window.height * 0.02,
   },
 });
 
