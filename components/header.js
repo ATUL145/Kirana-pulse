@@ -10,22 +10,20 @@ const Header = ({ onSearch }) => {
   };
 
   return (
-    <View style={styles.header}>
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search"
-          value={searchText}
-          onChangeText={(text) => setSearchText(text)}
-        />
-        <Ionicons
-          name="search"
-          size={24}
-          color="black"
-          style={styles.searchIcon}
-          onPress={handleSearch}
-        />
-      </View>
+    <View style={styles.searchContainer}>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search"
+        value={searchText}
+        onChangeText={(text) => setSearchText(text)}
+      />
+      <Ionicons
+        name="search"
+        size={24}
+        color="black"
+        style={styles.searchIcon}
+        onPress={handleSearch}
+      />
     </View>
   );
 };
@@ -43,6 +41,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     height: 40,
+    margin: 12,
   },
   searchInput: {
     flex: 1,

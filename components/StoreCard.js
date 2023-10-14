@@ -26,7 +26,6 @@ const StoreCard = ({ name, type, address, navigation }) => {
   const toggleLike = () => {
     setLiked(!liked);
     // Use the navigation prop to navigate to "TestScreen"
-    navigation.navigate("TestScreen");
   };
 
   const togglePhone = () => {
