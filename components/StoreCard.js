@@ -25,7 +25,6 @@ const StoreCard = ({ name, type, address, navigation }) => {
 
   const toggleLike = () => {
     setLiked(!liked);
-    // Use the navigation prop to navigate to "TestScreen"
   };
 
   const togglePhone = () => {
@@ -80,11 +79,11 @@ const StoreCard = ({ name, type, address, navigation }) => {
 
 const styles = StyleSheet.create({
   headerText: {
-    fontSize: 0.08 * width,
+    fontSize: 0.06 * width,
     marginBottom: 0.001 * height,
   },
   headerType: {
-    fontSize: 0.05 * width,
+    fontSize: 0.04 * width,
     marginBottom: 0.01 * height,
     textAlign: "center",
   },

@@ -43,8 +43,8 @@ const Login = ({ navigation }) => {
         50
       );
     } else if (
-      password === "retailpulse" &&
-      (username === "Ram" || username === "Shyam")
+      password.trim() === "retailpulse" &&
+      (username.trim() === "Ram" || username.trim() === "Shyam")
     ) {
       navigation.navigate("HomeScreen", { username: username });
       console.log(
