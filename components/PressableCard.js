@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
   type: {
-    fontSize: 16,
+    fontSize: 14,
   },
   addressContainer: {
     flexDirection: "row",
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   address: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#555",
   },
 });
